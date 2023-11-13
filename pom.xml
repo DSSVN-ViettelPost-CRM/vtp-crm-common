@@ -23,6 +23,7 @@
         <apache.common.lang.version>3.12.0</apache.common.lang.version>
         <common.io.version>2.13.0</common.io.version>
         <apache.slf4j.version>2.20.0</apache.slf4j.version>
+        <open.feign.version>4.0.4</open.feign.version>
     </properties>
     <dependencies>
         <dependency>
@@ -33,6 +34,16 @@
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-jpa</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <version>${open.feign.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
