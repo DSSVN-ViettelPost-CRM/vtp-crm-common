@@ -38,12 +38,6 @@ public class Constants {
 
 	public static final String PROPERTIE_LANG_DEFAULT = "vi_VN";
 
-	public static final String PARENT_ID = "PARENT_ID";
-
-	public static final String IS_ACTIVE = "ISACTIVE";
-
-	public static final int WINDOW_ID_MASTER_DATA = 15200584;
-
 	/* Format TIME */
 	public static final String ISO_MONTH_SDF_PATTERN = "yyyy-MM";
 
@@ -104,11 +98,6 @@ public class Constants {
 	public static final String DEFAULT_PASSWORD = "123456aA";
 
 	/* SMS */
-	public static final String SMS_URI = "https://otp-dev.okd.viettelpost.vn/sms/send";
-
-	public static final String SMS_AUTH = "573969a7-edba-4a92-85b2-f54080bbe905";
-
-	public static final String SMS_CAMPAIGN = "CRM";
 
 	public static final String REDIS_KEY_DELIMITER = ".";
 
