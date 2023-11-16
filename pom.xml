@@ -24,6 +24,8 @@
         <common.io.version>2.13.0</common.io.version>
         <apache.slf4j.version>2.20.0</apache.slf4j.version>
         <open.feign.version>4.0.4</open.feign.version>
+        <mapstruct.version>1.4.2.Final</mapstruct.version>
+        <mapstruct.facade.version>1.6.5</mapstruct.facade.version>
     </properties>
     <dependencies>
         <dependency>
@@ -37,6 +39,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -81,6 +87,20 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
+        </dependency>
+
+        <!-- Mapstruct -->
+        <dependency>
+            <groupId>com.naharoo.commons</groupId>
+            <artifactId>mapstruct-facade-spring-boot-starter</artifactId>
+            <version>${mapstruct.facade.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+            <version>${mapstruct.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>one.util</groupId>
