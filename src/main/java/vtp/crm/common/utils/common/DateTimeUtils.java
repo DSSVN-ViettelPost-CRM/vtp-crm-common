@@ -244,6 +244,14 @@ public class DateTimeUtils {
 		return DateFormatUtils.format(date, Constants.FORMAT_DATE_TIME_MOBILE);
 	}
 
+	public static final Date parseDateTimeForMobileApp(String date) throws ParseException {
+		if (date == null) {
+			return null;
+		}
+
+		return new SimpleDateFormat(Constants.FORMAT_DATE_TIME_MOBILE).parse(date);
+	}
+
 	public static String formatDateTimeForReportHour(Date date) {
 		if (date == null) {
 			return null;
