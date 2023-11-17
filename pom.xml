@@ -122,6 +122,13 @@
             <artifactId>spring-cloud-starter-openfeign</artifactId>
             <version>4.0.4</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>32.1.3-jre</version>
+        </dependency>
+
     </dependencies>
 
     <distributionManagement>
