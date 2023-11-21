@@ -19,7 +19,7 @@ public class CurrentUserInfo {
 
     private Long orgId;
 
-    private List<Long> roleIds;
+    private List<RoleInfo> roles;
 
     private List<Long> permissionIds;
 
