@@ -17,6 +17,8 @@ public class CurrentUserInfo {
 
     private Boolean isActive;
 
+    private Long orgId;
+
     private List<Long> roleIds;
 
     private List<Long> permissionIds;
