@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class TokenVO {
+public class CurrentUserInfo {
 
     private Long userId;
 

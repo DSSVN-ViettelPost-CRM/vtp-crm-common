@@ -1,13 +1,23 @@
 package vtp.crm.common.utils;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import vtp.crm.common.vo.dto.token.CurrentUserInfo;
 
 import java.util.Optional;
 
+
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ContextUtils {
+
+	public static CurrentUserInfo getCurrentUserInfo() {
+		String token = getRequestHeader().getAuthorizationToken();
+		return TokenUtils.decodeToken(token, CurrentUserInfo.class);
+	}	
 
 	public static RequestHeaderHolder getRequestHeader() {
 		ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();

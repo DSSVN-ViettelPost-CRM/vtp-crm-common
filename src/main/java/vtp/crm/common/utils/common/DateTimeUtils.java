@@ -307,5 +307,4 @@ public class DateTimeUtils {
 			return min.compareTo(date) * date.compareTo(max) > 0;
 		}
 	}
-
 }
