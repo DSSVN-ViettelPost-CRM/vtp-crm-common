@@ -296,7 +296,15 @@ public class DateTimeUtils {
 
 		return new SimpleDateFormat(Constants.FORMAT_DATE_IMPORT).parse(date);
 	}
-	
- 
+
+	public static Boolean isDateBetween(Date min, Date max, Date date) {
+		if (min == null) {
+			return max == null || date.compareTo(max) < 0;
+		} else if (max == null) {
+			return min.compareTo(date) < 0;
+		} else {
+			return min.compareTo(date) * date.compareTo(max) > 0;
+		}
+	}
 	
 }
