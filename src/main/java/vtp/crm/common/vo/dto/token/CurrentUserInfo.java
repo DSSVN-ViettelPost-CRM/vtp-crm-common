@@ -21,7 +21,7 @@ public class CurrentUserInfo {
 
     private List<RoleInfo> roles;
 
-    private List<Long> permissionIds;
+    private List<PermissionInfo> permissionIds;
 
     private Long iat;
 
