@@ -19,9 +19,9 @@ public class CurrentUserInfo {
 
     private Long orgId;
 
-    private List<RoleInfo> roles;
+    private List<RoleInfo> roleInfos;
 
-    private List<PermissionInfo> permissionIds;
+    private List<PermissionInfo> permissionInfos;
 
     private Long iat;
 
