@@ -11,6 +11,8 @@ public class CurrentUserInfo {
 
     private String username;
 
+    private String fullName;
+
     private String email;
 
     private String phone;
