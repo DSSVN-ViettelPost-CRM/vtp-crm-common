@@ -2,6 +2,9 @@ package vtp.crm.common.utils.common;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -307,4 +310,16 @@ public class DateTimeUtils {
 			return min.compareTo(date) * date.compareTo(max) > 0;
 		}
 	}
+
+	public static boolean isMatchingPattern(String input, String pattern) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
+		dateFormat.setLenient(false); // Set leniency to false for strict parsing
+		try {
+			dateFormat.parse(input);
+			return true; // Parsing succeeded, input matches the pattern
+		} catch (ParseException e) {
+			return false; // Parsing failed, input does not match the pattern
+		}
+	}
+
 }
