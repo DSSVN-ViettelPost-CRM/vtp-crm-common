@@ -72,6 +72,8 @@ public class Constants {
 
 	public static final String EMAIL_PATTERN = ".*@gmail\\.com$";
 
+	public static final String GMAIL_PATTERN = "^[A-Za-z0-9._%+-]+@gmail\\.com$";
+
 	public static final String TOKEN_TYPE = "Bearer ";
 
 	public static final String EMAIL = "Email";

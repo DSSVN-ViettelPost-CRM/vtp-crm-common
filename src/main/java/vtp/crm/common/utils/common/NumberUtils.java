@@ -2,6 +2,8 @@ package vtp.crm.common.utils.common;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 
 public class NumberUtils {
 
@@ -49,5 +51,18 @@ public class NumberUtils {
         }
         DecimalFormat formatter = new DecimalFormat("###,###,###");
         return formatter.format(price);
+    }
+
+    public static final String decimalNumberFormat(Number number) {
+        if (number == null) {
+            return "";
+        }
+
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
+        symbols.setDecimalSeparator(',');
+        symbols.setGroupingSeparator('.');
+        DecimalFormat formatter = new DecimalFormat("###,###.##");
+        formatter.setDecimalFormatSymbols(symbols);
+        return formatter.format(number);
     }
 }
