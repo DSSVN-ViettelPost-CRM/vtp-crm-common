@@ -26,6 +26,7 @@
         <open.feign.version>4.0.4</open.feign.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <mapstruct.facade.version>1.6.5</mapstruct.facade.version>
+        <excel.poi.version>5.2.4</excel.poi.version>
     </properties>
     <dependencies>
         <dependency>
@@ -128,7 +129,17 @@
             <artifactId>guava</artifactId>
             <version>32.1.3-jre</version>
         </dependency>
-
+        <!-- Apache POI Core and XSSF -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>${excel.poi.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>${excel.poi.version}</version>
+        </dependency>
     </dependencies>
 
     <distributionManagement>

@@ -6,6 +6,8 @@ import org.springframework.util.CollectionUtils;
 import java.util.Collection;
 import java.util.function.Function;
 
+import static vtp.crm.common.utils.Constants.GMAIL_PATTERN;
+
 public class StringUtils extends org.springframework.util.StringUtils {
 
     /** Unicode dung san */
@@ -316,5 +318,12 @@ public class StringUtils extends org.springframework.util.StringUtils {
         }
 
         return string2.equals(string1);
+    }
+
+    public static boolean isValidGmail(String input) {
+        if (isEmpty(input)) {
+            return false;
+        }
+        return input.matches(GMAIL_PATTERN);
     }
 }
