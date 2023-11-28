@@ -490,19 +490,14 @@ public class ExcelHelper {
 	}
 
 	public static String getColumnLetter(int columnIdx) {
-		StringBuilder columnName = new StringBuilder();
-
-		while (columnIdx > 0) {
-			// Find the remainder after dividing by 26 (number of letters in the English alphabet)
-			int remainder = columnIdx % 26;
-
-			// Convert the remainder to a character and append it to the column name
-			columnName.insert(0, (char) (65 + remainder)); // 'A' is ASCII code 65
-
-			// Update the column number for the next iteration
-			columnIdx = columnIdx / 26;
+		StringBuilder result = new StringBuilder();
+		int columnNumber = columnIdx + 1;
+		while (columnNumber > 0) {
+			columnNumber--;
+			result.insert(0, (char) ('A' + columnNumber % 26));
+			columnNumber /= 26;
 		}
-		return columnName.toString();
+		return result.toString();
 	}
 
 }
