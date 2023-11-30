@@ -1,15 +1,21 @@
-package vtp.crm.common.vo.response;
+package vtp.crm.common.vo.dto.token;
+
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Accessors(chain = true)
-public class ResultVO<T> {
-	private T data;
-	private String message;
+public class RoleInfo {
+
+	private Long id;
+
+	private String code;
+
 }

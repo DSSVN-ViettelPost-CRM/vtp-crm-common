@@ -1,13 +1,17 @@
 package vtp.crm.common.utils.common;
 
-import org.apache.commons.lang3.time.DateFormatUtils;
-import org.apache.commons.lang3.time.DateUtils;
-import vtp.crm.common.utils.Constants;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Calendar;
 import java.util.Date;
+
+import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.commons.lang3.time.DateUtils;
+
+import vtp.crm.common.utils.Constants;
 
 public class DateTimeUtils {
 
@@ -244,6 +248,14 @@ public class DateTimeUtils {
 		return DateFormatUtils.format(date, Constants.FORMAT_DATE_TIME_MOBILE);
 	}
 
+	public static final Date parseDateTimeForMobileApp(String date) throws ParseException {
+		if (date == null) {
+			return null;
+		}
+
+		return new SimpleDateFormat(Constants.FORMAT_DATE_TIME_MOBILE).parse(date);
+	}
+
 	public static String formatDateTimeForReportHour(Date date) {
 		if (date == null) {
 			return null;
@@ -265,9 +277,9 @@ public class DateTimeUtils {
 
 		return new SimpleDateFormat(Constants.FORMAT_DATE_MOBILE).parse(date);
 	}
-	
+
 	public static String formatDateToString(Date date) {
-		if(date == null) {
+		if (date == null) {
 			return "";
 		}
 		return DateFormatUtils.format(date, Constants.FORMAT_DATE_MOBILE);
@@ -288,7 +300,26 @@ public class DateTimeUtils {
 
 		return new SimpleDateFormat(Constants.FORMAT_DATE_IMPORT).parse(date);
 	}
-	
- 
-	
+
+	public static final Boolean isDateBetween(Date min, Date max, Date date) {
+		if (min == null) {
+			return max == null || date.compareTo(max) < 0;
+		} else if (max == null) {
+			return min.compareTo(date) < 0;
+		} else {
+			return min.compareTo(date) * date.compareTo(max) > 0;
+		}
+	}
+
+	public static boolean isMatchingPattern(String input, String pattern) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat(pattern);
+		dateFormat.setLenient(false); // Set leniency to false for strict parsing
+		try {
+			dateFormat.parse(input);
+			return true; // Parsing succeeded, input matches the pattern
+		} catch (ParseException e) {
+			return false; // Parsing failed, input does not match the pattern
+		}
+	}
+
 }

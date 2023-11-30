@@ -15,7 +15,7 @@ public class Constants {
 	public static final String PAGE_SORT_ASC = "ASC";
 
 	public static final String PAGE_SORT_DESC = "DESC";
-	
+
 	public static final Integer DEFAULT_UNPAGE = -1;
 
 	// Locale
@@ -72,6 +72,8 @@ public class Constants {
 
 	public static final String EMAIL_PATTERN = ".*@gmail\\.com$";
 
+	public static final String GMAIL_PATTERN = "^[A-Za-z0-9._%+-]+@gmail\\.com$";
+
 	public static final String TOKEN_TYPE = "Bearer ";
 
 	public static final String EMAIL = "Email";
@@ -85,17 +87,13 @@ public class Constants {
 
 	public static final int SAMPLE_UPDATEDBY = 0;
 
-	public static final String SAMPLE_PASSWORD = "123456";
-	
 	public static final boolean STATUS_TRUE = true;
 
 	public static final boolean STATUS_FALSE = false;
-	
+
 	public static final int DYNAMICFIELD_FIELDTYPE_MIN = 1;
 
 	public static final int DYNAMICFIELD_FIELDTYPE_MAX = 3;
-
-	public static final String DEFAULT_PASSWORD = "123456aA";
 
 	/* SMS */
 
@@ -116,4 +114,10 @@ public class Constants {
 	public static class NotificationType {
 		public static final String NUMBER_PATTERN = "[1-9]+";
 	}
+
+	/* Date */
+	public static final String MIN_BIRTH_DATE = "01/01/1930";
+
+	/* CMND/CCCD */
+	public static final String MIN_CARD_DATE = "01/01/1900";
 }
