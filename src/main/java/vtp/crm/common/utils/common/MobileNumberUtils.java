@@ -149,11 +149,7 @@ public class MobileNumberUtils {
         if (phone == null) {
             return false;
         }
-        if ((phone.startsWith(VN_COUNTRY_CODE) && phone.length() == 11)
-                || (phone.startsWith("0") && phone.length() == 10)) {
-            return phone.matches("[0-9]+");
-        }
-        return false;
+        return phone.matches("^0[0-9]{0,9}$");
     }
 
 }
