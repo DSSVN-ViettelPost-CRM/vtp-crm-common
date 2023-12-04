@@ -101,6 +101,11 @@ public class Constants {
 
 	public static final String DEFAULT_CACHE_KEY_GENERATOR = "customCacheKeyGenerator";
 
+	/**
+	 * The id can be used if there are no valid id found in the other microservices
+	 */
+	public static final Long CAN_NOT_FOUND_ID = -1L;
+
 	public static class Organization {
 
 		// not contains white space
