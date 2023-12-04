@@ -5,13 +5,13 @@
 
 1. thêm cấu hình vào file pom.xml
 ```xml
-<distributionManagement>
-    <repository>
-      <id>github</id>
-      <name>GitHub Apache Maven Packages</name>
-      <url>https://maven.pkg.github.com/huy8895/github-package-java-maven</url>
-    </repository>
-  </distributionManagement>
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub VTP Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/DSSVN-ViettelPost-CRM/vtp-crm-common</url>
+        </repository>
+    </distributionManagement>
 ```
 
 2. cấu hình cicd như file [file](.github/workflows/github-package.yml)
