@@ -26,11 +26,6 @@ public class ExcelHelper {
 
 	/**
 	 * openExcel: open excel file from resource
-	 *
-	 * @param resourceLoader
-	 * @param path
-	 * @return
-	 * @throws IOException
 	 */
 	public static Workbook openResourceExcel(String pathInResource) throws IOException {
 		ClassLoader classloader = Thread.currentThread().getContextClassLoader();
@@ -498,6 +493,34 @@ public class ExcelHelper {
 			columnNumber /= 26;
 		}
 		return result.toString();
+	}
+
+	/**
+	 * read Excel cell values regardless of their cell types as string
+	 */
+	public static String getCellValueAsString(Cell cell) {
+		if (cell == null) {
+			return ""; // Return empty string for null cells
+		}
+
+		switch (cell.getCellType()) {
+			case STRING:
+				return cell.getStringCellValue();
+			case NUMERIC:
+				if (DateUtil.isCellDateFormatted(cell)) {
+					return String.valueOf(cell.getDateCellValue());
+				} else {
+					return String.valueOf(cell.getNumericCellValue());
+				}
+			case BOOLEAN:
+				return String.valueOf(cell.getBooleanCellValue());
+			case FORMULA:
+				return cell.getCellFormula(); // we may need to evaluate formulas
+			case BLANK:
+				return ""; // Return empty string for blank cells
+			default:
+				return "";
+		}
 	}
 
 }
