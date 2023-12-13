@@ -9,7 +9,9 @@ import org.springframework.http.HttpStatus;
 public class InvalidInputRequestException extends RuntimeException {
 
 	private Integer errorCode;
+
 	private Object[] params;
+
 
 	public InvalidInputRequestException(String message, Object... params) {
 		super(message);

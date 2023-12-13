@@ -111,4 +111,12 @@ public class CommonExceptionResolver {
 		return new ResponseEntity<>(CommonUtils.convertFromJson(fe.contentUTF8(), Map.class), statusCode);
 	}
 
+	@ExceptionHandler(InternalServerException.class)
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	public Map<String, String> handleInternalServerException(InternalServerException ise) {
+		String message = Translator.toLocale(ise.getMessage(), ise.getParams());
+		logger.error(message, ise);
+		return Map.of(MESSAGE, message);
+	}
+
 }
