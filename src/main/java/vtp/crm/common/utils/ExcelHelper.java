@@ -484,7 +484,7 @@ public class ExcelHelper {
 		return worksheet;
 	}
 
-	public static String getColumnLetter(int columnIdx) {
+	public static String convertToColumnLetter(int columnIdx) {
 		StringBuilder result = new StringBuilder();
 		int columnNumber = columnIdx + 1;
 		while (columnNumber > 0) {
@@ -521,6 +521,31 @@ public class ExcelHelper {
 			default:
 				return "";
 		}
+	}
+
+	public static Integer getColumnIndex(String columnLetter) {
+		if (StringUtils.isBlank(columnLetter)) {
+			return null;
+		}
+
+		columnLetter = StringUtils.upperCase(columnLetter);
+		int columnIndex = 0;
+
+		for (int i = 0; i < columnLetter.length(); i++) {
+			int charValue = columnLetter.charAt(i) - 'A' + 1;
+			columnIndex = columnIndex * 26 + charValue;
+		}
+
+		return columnIndex - 1;
+	}
+
+	public static String toFormulaReference(String sheetName, int startColIdx, int startRowIdx, int endColIdx, int endRowIdx) {
+		String startColLetter = convertToColumnLetter(startColIdx);
+		String endColLetter = convertToColumnLetter(endColIdx);
+ 		// {0}!${1}${2}:${3}${4}", sheetName, startColLetter, startRowIdx + 1, endColLetter, endRowIdx + 1);
+		return sheetName +
+				"!$" + startColLetter + "$" + (startRowIdx + 1) +
+				":$" + endColLetter + "$" + (endRowIdx + 1);
 	}
 
 }
