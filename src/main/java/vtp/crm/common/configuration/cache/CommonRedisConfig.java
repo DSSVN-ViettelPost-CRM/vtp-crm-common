@@ -5,6 +5,7 @@ import one.util.streamex.StreamEx;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.interceptor.KeyGenerator;
@@ -34,7 +35,9 @@ public class CommonRedisConfig {
     public KeyGenerator cacheKeyGenerator() {
         return (target, method, params) -> {
             // user define cache name
-            String[] cacheNamesDefined = method.getAnnotation(Cacheable.class).cacheNames();
+            String[] cacheNamesDefined = method.getAnnotation(Cacheable.class) != null
+                    ? method.getAnnotation(Cacheable.class).cacheNames()
+                    : method.getAnnotation(CacheEvict.class).cacheNames();
             String cacheNames = ObjectUtils.isEmpty(cacheNamesDefined)
                     ? target.getClass().getSimpleName() + Constants.REDIS_KEY_DELIMITER + method.getName()
                     : StringUtils.join(cacheNamesDefined, Constants.REDIS_KEY_DELIMITER);
