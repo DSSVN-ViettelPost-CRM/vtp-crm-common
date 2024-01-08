@@ -1,7 +1,6 @@
 package vtp.crm.common.configuration.exception;
 
 import feign.FeignException;
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,6 +24,9 @@ import vtp.crm.common.utils.Translator;
 import vtp.crm.common.utils.common.CommonUtils;
 import vtp.crm.common.vo.response.ErrorResponse;
 
+import java.nio.file.AccessDeniedException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -36,7 +38,7 @@ public class CommonExceptionResolver {
 	private String serviceName;
 
 
-	private ErrorResponse logErrorAndBuildResponse(Exception e, String msgCode, Object... params) {
+	protected ErrorResponse logErrorAndBuildResponse(Exception e, String msgCode, Object... params) {
 		String msg = Translator.toLocale(msgCode, params);
 		logger.error(msg, e);
 		return new ErrorResponse()
@@ -128,6 +130,12 @@ public class CommonExceptionResolver {
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	public ErrorResponse handleInternalServerException(InternalServerException ise) {
 		return logErrorAndBuildResponse(ise, ise.getMessage(), ise.getParams());
+	}
+
+	@ExceptionHandler(AccessDeniedException.class)
+	@ResponseStatus(HttpStatus.FORBIDDEN)
+	public ErrorResponse handleAccessDeniedException(AccessDeniedException e) {
+		return logErrorAndBuildResponse(e, "msg_error_not_permission");
 	}
 
 }
