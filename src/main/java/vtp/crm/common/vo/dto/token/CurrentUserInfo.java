@@ -1,10 +1,12 @@
 package vtp.crm.common.vo.dto.token;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.util.List;
 
 @Data
+@Accessors(chain = true)
 public class CurrentUserInfo {
 
     private Long userId;
@@ -19,13 +21,18 @@ public class CurrentUserInfo {
 
     private Boolean isActive;
 
+    /**
+     * An user has multiple working org. this field will be removed in the future. please use #orgIds instead.
+     */
+    @Deprecated(forRemoval = true)
     private Long orgId;
+
+    private List<Long> orgIds;
+
+    private List<Long> sharedOrgIds;
 
     private List<RoleInfo> roleInfos;
 
     private List<PermissionInfo> permissionInfos;
 
-    private Long iat;
-
-    private Long exp;
 }

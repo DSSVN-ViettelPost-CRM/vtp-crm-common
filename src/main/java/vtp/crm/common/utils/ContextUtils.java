@@ -15,6 +15,9 @@ import java.util.Optional;
 public class ContextUtils {
 
 	public static CurrentUserInfo getCurrentUserInfo() {
+		// TODO note: userId always get from token
+		// sometime we request inside private network, not pass through gateway (jobs service)
+		// jobs will do business modify data and maybe we want to record the auditor as the jobs
 		String token = getRequestHeader().getAuthorizationToken();
 		return TokenUtils.decodeToken(token, CurrentUserInfo.class);
 	}	

@@ -16,6 +16,10 @@ public class RoleInfo {
 
 	private Long id;
 
+	private String name;
+
 	private String code;
+
+	private Integer level;
 
 }
