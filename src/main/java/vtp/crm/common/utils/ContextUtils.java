@@ -8,6 +8,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import vtp.crm.common.utils.common.CommonUtils;
+import vtp.crm.common.vo.CrmHeaders;
 import vtp.crm.common.vo.dto.token.CurrentUserInfo;
 
 import java.util.List;
@@ -60,7 +61,7 @@ public class ContextUtils {
 		}
 
 		public Optional<Long> getUserId() {
-			return this.getAttribute("X-USER-ID")
+			return this.getAttribute(CrmHeaders.USER_ID.getValue())
 					.map(StringUtils::trimToNull)
 					.map(Long::valueOf);
 		}
@@ -70,20 +71,20 @@ public class ContextUtils {
 		 */
 		@Deprecated(forRemoval = true)
 		public Optional<Long> getOrgId() {
-			return this.getAttribute("X-ORG-ID")
+			return this.getAttribute(CrmHeaders.ORG_ID.getValue())
 					.map(StringUtils::trimToNull)
 					.map(Long::valueOf);
 		}
 
 		public List<Long> getOrgIds() {
-			return this.getAttribute("X-ORG-IDS")
+			return this.getAttribute(CrmHeaders.ORG_IDS.getValue())
 					.map(StringUtils::trimToNull)
 					.map(orgIdsStr -> CommonUtils.convertFromJsonToList(orgIdsStr, Long.class))
 					.orElse(List.of());
 		}
 
 		public List<Long> getSharedOrgIds() {
-			return this.getAttribute("X-SHARED-ORG-IDS")
+			return this.getAttribute(CrmHeaders.SHARED_ORG_IDS.getValue())
 					.map(StringUtils::trimToNull)
 					.map(orgIdsStr -> CommonUtils.convertFromJsonToList(orgIdsStr, Long.class))
 					.orElse(List.of());
