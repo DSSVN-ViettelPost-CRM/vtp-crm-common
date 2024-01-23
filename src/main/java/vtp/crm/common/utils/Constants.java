@@ -108,7 +108,7 @@ public class Constants {
 
 	public static class Organization {
 
-        public static final Long rootOrgId = 1L;
+        public static final Long ROOT_ORG_ID = 1L;
 
 		// not contains white space
 		public static final String VALUE_PATTERN = "^((?! ).)*$";
