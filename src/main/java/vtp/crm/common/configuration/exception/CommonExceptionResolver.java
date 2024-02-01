@@ -123,7 +123,16 @@ public class CommonExceptionResolver {
 	}
 
 	@ExceptionHandler(CustomException.class)
-	public ErrorResponse handleCustomException(CustomException e) {
-		return logErrorAndBuildResponse(e, e.getMessage(), e.getParams());
+	public ResponseEntity<?> handleCustomException(CustomException e) {
+		logger.error(e);
+		HttpStatusCode statusCode = HttpStatus.BAD_REQUEST;
+		try {
+			statusCode = HttpStatusCode.valueOf(e.getErrorCode());
+		} catch (Exception ignored) {
+		}
+		ErrorResponse errorResponse = ErrorResponse.builder().message(e.getMessage()).service(serviceName)
+				.detailError(e.getMessage()).build();
+		
+		return new ResponseEntity<>(errorResponse, statusCode);
 	}
 }
