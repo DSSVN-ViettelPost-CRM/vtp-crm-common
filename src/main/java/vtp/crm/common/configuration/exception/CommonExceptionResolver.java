@@ -122,7 +122,7 @@ public class CommonExceptionResolver {
 		return logErrorAndBuildResponse(e, "msg_error_not_permission");
 	}
 
-	@ExceptionHandler(InvalidInputRequestException.class)
+	@ExceptionHandler(CustomException.class)
 	public ErrorResponse handleCustomException(CustomException e) {
 		return logErrorAndBuildResponse(e, e.getMessage(), e.getParams());
 	}
