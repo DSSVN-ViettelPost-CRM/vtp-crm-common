@@ -1,6 +1,8 @@
 package vtp.crm.common.configuration.exception;
 
-import feign.FeignException;
+import java.nio.file.AccessDeniedException;
+import java.util.Optional;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,15 +22,11 @@ import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.multipart.support.MissingServletRequestPartException;
 import org.springframework.web.servlet.NoHandlerFoundException;
+
+import feign.FeignException;
 import vtp.crm.common.utils.Translator;
 import vtp.crm.common.utils.common.CommonUtils;
 import vtp.crm.common.vo.response.ErrorResponse;
-
-import java.nio.file.AccessDeniedException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-
 
 public class CommonExceptionResolver {
 
@@ -37,14 +35,10 @@ public class CommonExceptionResolver {
 	@Value("${spring.application.name}")
 	private String serviceName;
 
-
 	protected ErrorResponse logErrorAndBuildResponse(Exception e, String msgCode, Object... params) {
 		String msg = Translator.toLocale(msgCode, params);
 		logger.error(msg, e);
-		return new ErrorResponse()
-				.setMessage(msg)
-				.setService(serviceName)
-				.setDetailError(e.toString());
+		return new ErrorResponse().setMessage(msg).setService(serviceName).setDetailError(e.toString());
 	}
 
 	@ExceptionHandler(NoHandlerFoundException.class)
@@ -65,13 +59,8 @@ public class CommonExceptionResolver {
 		return logErrorAndBuildResponse(e, "msg_error_method_not_allowed");
 	}
 
-	@ExceptionHandler({
-			MissingServletRequestParameterException.class,
-			MethodArgumentTypeMismatchException.class,
-			MissingServletRequestPartException.class,
-			MultipartException.class,
-			HttpMessageNotReadableException.class
-	})
+	@ExceptionHandler({ MissingServletRequestParameterException.class, MethodArgumentTypeMismatchException.class,
+			MissingServletRequestPartException.class, MultipartException.class, HttpMessageNotReadableException.class })
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public ErrorResponse handleMissingServletRequestParameterException(Exception e) {
 		return logErrorAndBuildResponse(e, "msg_error_bad_request");
@@ -98,8 +87,7 @@ public class CommonExceptionResolver {
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ErrorResponse handleValidationExceptions(MethodArgumentNotValidException ex) {
-		String message = Optional.ofNullable(ex.getFieldError())
-				.map(FieldError::getDefaultMessage)
+		String message = Optional.ofNullable(ex.getFieldError()).map(FieldError::getDefaultMessage)
 				.orElse(ex.getLocalizedMessage());
 		return logErrorAndBuildResponse(ex, message);
 	}
@@ -111,18 +99,14 @@ public class CommonExceptionResolver {
 
 		String message = Optional.ofNullable(fe.contentUTF8())
 				.map(content -> CommonUtils.convertFromJson(content, ErrorResponse.class))
-				.map(ErrorResponse::getMessage)
-				.orElse(fe.getMessage());
+				.map(ErrorResponse::getMessage).orElse(fe.getMessage());
 
 		try {
 			statusCode = HttpStatusCode.valueOf(fe.status());
 		} catch (Exception ignored) {
 		}
-		ErrorResponse errorResponse = ErrorResponse.builder()
-				.message(message)
-				.service(serviceName)
-				.detailError(fe.getMessage())
-				.build();
+		ErrorResponse errorResponse = ErrorResponse.builder().message(message).service(serviceName)
+				.detailError(fe.getMessage()).build();
 		return new ResponseEntity<>(errorResponse, statusCode);
 	}
 
@@ -138,4 +122,8 @@ public class CommonExceptionResolver {
 		return logErrorAndBuildResponse(e, "msg_error_not_permission");
 	}
 
+	@ExceptionHandler(InvalidInputRequestException.class)
+	public ErrorResponse handleCustomException(CustomException e) {
+		return logErrorAndBuildResponse(e, e.getMessage(), e.getParams());
+	}
 }

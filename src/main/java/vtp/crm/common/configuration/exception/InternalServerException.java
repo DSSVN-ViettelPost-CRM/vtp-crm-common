@@ -7,6 +7,7 @@ import lombok.Setter;
 @Setter
 public class InternalServerException extends RuntimeException {
 
+	private static final long serialVersionUID = 1L;
 
 	private Object[] params;
 
