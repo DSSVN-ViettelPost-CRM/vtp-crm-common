@@ -6,7 +6,7 @@ import org.springframework.util.CollectionUtils;
 import java.util.Collection;
 import java.util.function.Function;
 
-import static vtp.crm.common.utils.Constants.GMAIL_PATTERN;
+import static vtp.crm.common.utils.Constants.EMAIL_PATTERN;
 
 public class StringUtils extends org.springframework.util.StringUtils {
 
@@ -324,6 +324,6 @@ public class StringUtils extends org.springframework.util.StringUtils {
         if (isEmpty(input)) {
             return false;
         }
-        return input.matches(GMAIL_PATTERN);
+        return input.matches(EMAIL_PATTERN);
     }
 }

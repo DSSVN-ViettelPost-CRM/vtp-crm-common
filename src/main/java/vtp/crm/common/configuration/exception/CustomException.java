@@ -1,12 +1,13 @@
 package vtp.crm.common.configuration.exception;
 
+import org.springframework.http.HttpStatus;
+
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.http.HttpStatus;
 
 @Getter
 @Setter
-public class InvalidInputRequestException extends RuntimeException {
+public class CustomException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 
@@ -14,9 +15,14 @@ public class InvalidInputRequestException extends RuntimeException {
 
 	private Object[] params;
 
-	public InvalidInputRequestException(String message, Object... params) {
+	public CustomException(String message, Object... params) {
 		super(message);
 		this.errorCode = HttpStatus.BAD_REQUEST.value();
 		this.params = params;
+	}
+
+	public CustomException(Integer errorCode, String message) {
+		super(message);
+		this.errorCode = errorCode;
 	}
 }

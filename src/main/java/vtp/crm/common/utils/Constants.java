@@ -70,9 +70,9 @@ public class Constants {
 
 	public static final String STATUS_NO = "N";
 
-	public static final String EMAIL_PATTERN = ".*@gmail\\.com$";
+	public static final String EMAIL_PATTERN = "^[\\w_\\.]+@([a-zA-Z0-9\\-]+\\.)+[a-zA-Z]{2,4}$";
 
-	public static final String GMAIL_PATTERN = "^[A-Za-z0-9._%+-]+@gmail\\.com$";
+	// public static final String GMAIL_PATTERN = "^[A-Za-z0-9._%+-]+@gmail\\.com$";
 
 	public static final String TOKEN_TYPE = "Bearer ";
 
@@ -107,6 +107,8 @@ public class Constants {
 	public static final Long CAN_NOT_FOUND_ID = -1L;
 
 	public static class Organization {
+
+        public static final Long ROOT_ORG_ID = 1L;
 
 		// not contains white space
 		public static final String VALUE_PATTERN = "^((?! ).)*$";
