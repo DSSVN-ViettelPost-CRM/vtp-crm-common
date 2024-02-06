@@ -40,9 +40,9 @@ public class CommonUtils {
 				.body(content);
 	}
 
-    public static String generateOrgName(String orgRealName, String orgValue) {
-        return orgRealName != null && !orgRealName.isBlank()
-                ? orgValue + " - " + orgRealName
+    public static String generateOrgName(String orgName, String orgValue) {
+        return orgName != null && !orgName.isBlank()
+                ? orgValue + " - " + orgName
                 : orgValue;
     }
 
