@@ -278,6 +278,13 @@ public class DateTimeUtils {
 		return new SimpleDateFormat(Constants.FORMAT_DATE_MOBILE).parse(date);
 	}
 
+    public static String formatDateForMobileApp(Date date) {
+        if (date == null) {
+            return "";
+        }
+        return DateFormatUtils.format(date, Constants.FORMAT_DATE_MOBILE);
+    }
+
 	public static String formatDateToString(Date date) {
 		if (date == null) {
 			return "";
