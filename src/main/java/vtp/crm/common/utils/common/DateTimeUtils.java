@@ -1,17 +1,16 @@
 package vtp.crm.common.utils.common;
 
+import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.commons.lang3.time.DateUtils;
+import vtp.crm.common.utils.Constants;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.Calendar;
 import java.util.Date;
-
-import org.apache.commons.lang3.time.DateFormatUtils;
-import org.apache.commons.lang3.time.DateUtils;
-
-import vtp.crm.common.utils.Constants;
 
 public class DateTimeUtils {
 
@@ -248,6 +247,13 @@ public class DateTimeUtils {
 		return DateFormatUtils.format(date, Constants.FORMAT_DATE_TIME_MOBILE);
 	}
 
+    public static String formatDateTimeForMobileApp(LocalDateTime dateTime) {
+        if (dateTime == null) {
+            return null;
+        }
+        return DateTimeFormatter.ofPattern(Constants.FORMAT_DATE_TIME_MOBILE).format(dateTime);
+    }
+
 	public static final Date parseDateTimeForMobileApp(String date) throws ParseException {
 		if (date == null) {
 			return null;
@@ -255,6 +261,13 @@ public class DateTimeUtils {
 
 		return new SimpleDateFormat(Constants.FORMAT_DATE_TIME_MOBILE).parse(date);
 	}
+
+    public static LocalDateTime parseLocalDateTimeForMobileApp(String dateTime) {
+        if (dateTime == null) {
+            return null;
+        }
+        return LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern(Constants.FORMAT_DATE_TIME_MOBILE));
+    }
 
 	public static String formatDateTimeForReportHour(Date date) {
 		if (date == null) {
@@ -278,11 +291,26 @@ public class DateTimeUtils {
 		return new SimpleDateFormat(Constants.FORMAT_DATE_MOBILE).parse(date);
 	}
 
+    public static LocalDate parseLocalDateForMobileApp(String date) {
+        if (date == null) {
+            return null;
+        }
+
+        return LocalDate.parse(date, DateTimeFormatter.ofPattern(Constants.FORMAT_DATE_MOBILE));
+    }
+
     public static String formatDateForMobileApp(Date date) {
         if (date == null) {
             return "";
         }
         return DateFormatUtils.format(date, Constants.FORMAT_DATE_MOBILE);
+    }
+
+    public static String formatDateForMobileApp(LocalDateTime date) {
+        if (date == null) {
+            return "";
+        }
+        return DateTimeFormatter.ofPattern(Constants.FORMAT_DATE_MOBILE).format(date);
     }
 
 	public static String formatDateToString(Date date) {
