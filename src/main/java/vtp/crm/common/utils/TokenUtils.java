@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.tomcat.util.codec.binary.Base64;
 import vtp.crm.common.configuration.exception.InvalidInputRequestException;
+import vtp.crm.common.utils.common.CommonUtils;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class TokenUtils {
@@ -19,8 +20,7 @@ public class TokenUtils {
 			String jwtToken = token.substring(7);
 			String[] split_string = jwtToken.split("\\.");
 			String tokenPayload = new String(base64.decode(split_string[1]));
-			Gson gson = new Gson();
-			return gson.fromJson(tokenPayload, clazz);
+			return CommonUtils.convertFromJson(tokenPayload, clazz);
 		} catch (Exception e) {
 			throw new InvalidInputRequestException("msg_sso_validate_token_failed");
 		}
