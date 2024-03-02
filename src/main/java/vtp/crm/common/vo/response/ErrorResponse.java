@@ -1,5 +1,4 @@
-package vtp.crm.common.vo.dto.token;
-
+package vtp.crm.common.vo.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,14 +11,12 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @Builder
 @Accessors(chain = true)
-public class RoleInfo {
+public class ErrorResponse {
 
-	private Long id;
+	private String message;
 
-	private String name;
+	private String service;
 
-	private String code;
-
-	private Integer level;
+	private Object detailError;
 
 }
