@@ -1,9 +1,12 @@
-name: Publish package to GitHub Packages
+name: Build and push to docker hub
 
 on:
   push:
     branches:
       - "dss-debug"
+
+env:
+  DOCKER_REPO: heligate2023/vtp-crm-common-service
 
 jobs:
   publish:
@@ -36,4 +39,4 @@ jobs:
           context: .
           file: ./dev.Dockerfile
           push: true
-          tags: heligate2023/vtp-crm-workflow-service:dss-debug
+          tags: ${{ env.DOCKER_REPO }}:dss-debug
