@@ -6,11 +6,11 @@ on:
       - "dss-debug"
 
 env:
-  DOCKER_REPO: heligate2023/vtp-crm-common-service
+  DOCKER_REPO: heligate2023/vtp-crm-common
 
 jobs:
   publish:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, dss-prd]
     permissions:
       contents: read
       packages: write
