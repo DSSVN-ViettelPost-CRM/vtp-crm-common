@@ -7,4 +7,4 @@ RUN cp target/*.jar /app/common.jar
 
 FROM alpine
 WORKDIR /app
-COPY --from=build /app/common.jar /app/app.jar
+COPY --from=build /app/common.jar /app/common.jar
