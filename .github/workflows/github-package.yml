@@ -12,7 +12,7 @@ env:
 
 jobs:
   setup-env-vars:
-    runs-on: [ self-hosted, staging ]
+    runs-on: ubuntu-latest
     outputs:
       image_tag: ${{ steps.set-outputs.outputs.image_tag }}
 
@@ -39,7 +39,7 @@ jobs:
 
   build-and-push-dockerhub:
     needs: setup-env-vars
-    runs-on: [ self-hosted, staging ]
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
