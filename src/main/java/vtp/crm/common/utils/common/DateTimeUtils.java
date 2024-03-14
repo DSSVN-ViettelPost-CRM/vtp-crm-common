@@ -6,9 +6,12 @@ import vtp.crm.common.utils.Constants;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -356,5 +359,55 @@ public class DateTimeUtils {
 			return false; // Parsing failed, input does not match the pattern
 		}
 	}
+
+    public static LocalDate convertToLocalDate(Date date) {
+        if (date == null) {
+            return null;
+        }
+        return Instant.ofEpochMilli(date.getTime())
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
+    }
+
+    public static LocalDateTime convertToLocalDateTime(Date date) {
+        if (date == null) {
+            return null;
+        }
+        return Instant.ofEpochMilli(date.getTime())
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime();
+    }
+
+    public static Date convertToLocalDateTime(LocalDate lcDate) {
+        if (lcDate == null) {
+            return null;
+        }
+        Instant instant = lcDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();
+        return Date.from(instant);
+    }
+
+    public static Date convertToLocalDateTime(LocalDateTime lcDateTime) {
+        if (lcDateTime == null) {
+            return null;
+        }
+        Instant instant = lcDateTime.atZone(ZoneId.systemDefault()).toInstant();
+        return Date.from(instant);
+    }
+
+    public static Long minusDays(LocalDateTime lcDateTime1, LocalDateTime lcDateTime2) {
+        if (lcDateTime1 == null || lcDateTime2 == null) {
+            return null;
+        }
+        return ChronoUnit.DAYS.between(lcDateTime1.toLocalDate(), lcDateTime2.toLocalDate());
+    }
+
+    public static Long minusDays(Date date1, Date date2) {
+        if (date1 == null || date2 == null) {
+            return null;
+        }
+        LocalDateTime lcDateTime1 = convertToLocalDateTime(date1);
+        LocalDateTime lcDateTime2 = convertToLocalDateTime(date2);
+        return minusDays(lcDateTime1, lcDateTime2);
+    }
 
 }
