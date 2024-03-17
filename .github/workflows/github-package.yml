@@ -1,10 +1,11 @@
 name: Publish package to GitHub Packages
 on:
-  release:
-    types: [created]
   push:
     branches:
       - develop
+      - staging
+      - dss-prd
+
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -17,8 +18,23 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-      - name: Publish package
-        run: mvn clean deploy --batch-mode
+      - name: Publish package develop
+        if: github.ref == 'refs/heads/develop'
+        run: mvn clean deploy --batch-mode -Pdevelop
+        env:
+          GITHUB_ACTOR: ${{ vars.GH_ACTOR }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+
+      - name: Publish package staging
+        if: github.ref == 'refs/heads/staging'
+        run: mvn clean deploy --batch-mode -Pstaging
+        env:
+          GITHUB_ACTOR: ${{ vars.GH_ACTOR }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+
+      - name: Publish package staging
+        if: github.ref == 'refs/heads/dss-prd'
+        run: mvn clean deploy --batch-mode -Pdss-prd
         env:
           GITHUB_ACTOR: ${{ vars.GH_ACTOR }}
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
