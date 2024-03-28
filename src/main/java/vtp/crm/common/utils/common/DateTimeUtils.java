@@ -410,4 +410,18 @@ public class DateTimeUtils {
         return minusDays(lcDateTime1, lcDateTime2);
     }
 
+    public static String format(LocalDate localDate, String pattern) {
+        if (localDate == null || pattern == null) {
+            return null;
+        }
+        return DateTimeFormatter.ofPattern(pattern).format(localDate);
+    }
+
+    public static String format(LocalDateTime localDateTime, String pattern) {
+        if (localDateTime == null || pattern == null) {
+            return null;
+        }
+        return DateTimeFormatter.ofPattern(pattern).format(localDateTime);
+    }
+
 }
