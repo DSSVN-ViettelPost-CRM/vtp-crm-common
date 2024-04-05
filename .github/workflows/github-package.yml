@@ -20,7 +20,7 @@ jobs:
           distribution: 'temurin'
       - name: Publish package develop
         if: github.ref == 'refs/heads/develop'
-        run: mvn clean deploy --batch-mode -Pdevelop
+        run: mvn clean deploy --batch-mode && mvn clean deploy --batch-mode -Pdevelop
         env:
           GITHUB_ACTOR: ${{ vars.GH_ACTOR }}
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
