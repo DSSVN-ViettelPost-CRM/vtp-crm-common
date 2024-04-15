@@ -207,4 +207,18 @@ public final class ResponseUtil {
 		return roots;
 	}
 
+    public static <T> PagedResult<T> emptyPagedResult() {
+        return emptyPagedResult(null);
+    }
+
+    public static <T> PagedResult<T> emptyPagedResult(SortingAndPagingRequestVO pagingRequest) {
+        int pageSize = pagingRequest != null ? pagingRequest.getSize() : Constants.DEFAULT_SIZE;
+        PagedVO pagedVO = new PagedVO()
+                .setTotalPage(0)
+                .setTotalRecord(0)
+                .setCurrentPage(1)
+                .setPageSize(pageSize);
+        return new PagedResult<>(pagedVO, List.of());
+    }
+
 }

@@ -1,17 +1,19 @@
 package vtp.crm.common.utils.common;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.Calendar;
-import java.util.Date;
-
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.DateUtils;
-
 import vtp.crm.common.utils.Constants;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
+import java.util.Date;
 
 public class DateTimeUtils {
 
@@ -248,6 +250,13 @@ public class DateTimeUtils {
 		return DateFormatUtils.format(date, Constants.FORMAT_DATE_TIME_MOBILE);
 	}
 
+    public static String formatDateTimeForMobileApp(LocalDateTime dateTime) {
+        if (dateTime == null) {
+            return null;
+        }
+        return DateTimeFormatter.ofPattern(Constants.FORMAT_DATE_TIME_MOBILE).format(dateTime);
+    }
+
 	public static final Date parseDateTimeForMobileApp(String date) throws ParseException {
 		if (date == null) {
 			return null;
@@ -255,6 +264,13 @@ public class DateTimeUtils {
 
 		return new SimpleDateFormat(Constants.FORMAT_DATE_TIME_MOBILE).parse(date);
 	}
+
+    public static LocalDateTime parseLocalDateTimeForMobileApp(String dateTime) {
+        if (dateTime == null) {
+            return null;
+        }
+        return LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern(Constants.FORMAT_DATE_TIME_MOBILE));
+    }
 
 	public static String formatDateTimeForReportHour(Date date) {
 		if (date == null) {
@@ -277,6 +293,28 @@ public class DateTimeUtils {
 
 		return new SimpleDateFormat(Constants.FORMAT_DATE_MOBILE).parse(date);
 	}
+
+    public static LocalDate parseLocalDateForMobileApp(String date) {
+        if (date == null) {
+            return null;
+        }
+
+        return LocalDate.parse(date, DateTimeFormatter.ofPattern(Constants.FORMAT_DATE_MOBILE));
+    }
+
+    public static String formatDateForMobileApp(Date date) {
+        if (date == null) {
+            return "";
+        }
+        return DateFormatUtils.format(date, Constants.FORMAT_DATE_MOBILE);
+    }
+
+    public static String formatDateForMobileApp(LocalDateTime date) {
+        if (date == null) {
+            return "";
+        }
+        return DateTimeFormatter.ofPattern(Constants.FORMAT_DATE_MOBILE).format(date);
+    }
 
 	public static String formatDateToString(Date date) {
 		if (date == null) {
@@ -321,5 +359,69 @@ public class DateTimeUtils {
 			return false; // Parsing failed, input does not match the pattern
 		}
 	}
+
+    public static LocalDate convertToLocalDate(Date date) {
+        if (date == null) {
+            return null;
+        }
+        return Instant.ofEpochMilli(date.getTime())
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
+    }
+
+    public static LocalDateTime convertToLocalDateTime(Date date) {
+        if (date == null) {
+            return null;
+        }
+        return Instant.ofEpochMilli(date.getTime())
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime();
+    }
+
+    public static Date convertToLocalDateTime(LocalDate lcDate) {
+        if (lcDate == null) {
+            return null;
+        }
+        Instant instant = lcDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();
+        return Date.from(instant);
+    }
+
+    public static Date convertToLocalDateTime(LocalDateTime lcDateTime) {
+        if (lcDateTime == null) {
+            return null;
+        }
+        Instant instant = lcDateTime.atZone(ZoneId.systemDefault()).toInstant();
+        return Date.from(instant);
+    }
+
+    public static Long minusDays(LocalDateTime lcDateTime1, LocalDateTime lcDateTime2) {
+        if (lcDateTime1 == null || lcDateTime2 == null) {
+            return null;
+        }
+        return ChronoUnit.DAYS.between(lcDateTime1.toLocalDate(), lcDateTime2.toLocalDate());
+    }
+
+    public static Long minusDays(Date date1, Date date2) {
+        if (date1 == null || date2 == null) {
+            return null;
+        }
+        LocalDateTime lcDateTime1 = convertToLocalDateTime(date1);
+        LocalDateTime lcDateTime2 = convertToLocalDateTime(date2);
+        return minusDays(lcDateTime1, lcDateTime2);
+    }
+
+    public static String format(LocalDate localDate, String pattern) {
+        if (localDate == null || pattern == null) {
+            return null;
+        }
+        return DateTimeFormatter.ofPattern(pattern).format(localDate);
+    }
+
+    public static String format(LocalDateTime localDateTime, String pattern) {
+        if (localDateTime == null || pattern == null) {
+            return null;
+        }
+        return DateTimeFormatter.ofPattern(pattern).format(localDateTime);
+    }
 
 }

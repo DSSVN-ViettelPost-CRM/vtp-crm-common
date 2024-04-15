@@ -1,6 +1,6 @@
 package vtp.crm.common.vo.converter;
 
-import com.naharoo.commons.mapstruct.BidirectionalMapper;
+import com.naharoo.commons.mapstruct.UnidirectionalMapper;
 import org.mapstruct.Named;
 import vtp.crm.common.utils.Translator;
 import vtp.crm.common.utils.common.BooleanUtils;
@@ -9,7 +9,7 @@ import vtp.crm.common.utils.common.DateTimeUtils;
 import java.text.ParseException;
 import java.util.Date;
 
-public interface CommonMapper<S, D> extends BidirectionalMapper<S, D> {
+public interface CommonUnidirectionalMapper<S, D> extends UnidirectionalMapper<S, D> {
 
     @Named("stringToBoolean")
     default Boolean stringToBoolean(String s) {
