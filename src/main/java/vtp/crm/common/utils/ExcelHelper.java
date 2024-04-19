@@ -5,6 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddressList;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -101,6 +102,24 @@ public class ExcelHelper {
 		style.setBorderLeft(BorderStyle.THIN);
 		return style;
 	}
+
+    public static void setCellColor(Sheet sheet, int rowIdx, int colIdx, IndexedColors color) {
+        Cell cell = sheet.getRow(rowIdx).getCell(colIdx);
+        CellStyle style = sheet.getWorkbook().createCellStyle();
+        style.setFillForegroundColor(color.getIndex());
+        style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        cell.setCellStyle(style);
+    }
+
+    public static void setRowColor(Sheet sheet, int rowIdx, IndexedColors color) {
+        Row row = sheet.getRow(rowIdx);
+        if (row == null) {
+            return;
+        }
+        for (int colIdx = 0; colIdx < row.getLastCellNum(); colIdx++) {
+            setCellColor(sheet, rowIdx, colIdx, color);
+        }
+    }
 
 	/**
 	 * Text alignment center
@@ -288,7 +307,9 @@ public class ExcelHelper {
 		Drawing drawing = sheet.createDrawingPatriarch();
 		Comment comment = drawing.createCellComment(anchor);
 		comment.setString(factory.createRichTextString(commentText));
-		comment.setAuthor(author);
+        if (author != null) {
+            comment.setAuthor(author);
+        }
 		cell.setCellComment(comment);
 	}
 
