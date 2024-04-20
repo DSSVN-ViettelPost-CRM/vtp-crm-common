@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Map;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Slf4j
@@ -33,6 +34,12 @@ public class CommonUtils {
 	public static String convertToJsonString(Object object) {
 		return gson.toJson(object);
 	}
+
+    public static Map<String, Object> convertObjectToHashMap(Object obj) {
+        return obj == null
+                ? Map.of()
+                : gson.fromJson(convertToJsonString(obj), new TypeToken<Map<String, Object>>(){}.getType());
+    }
 
 	public static <T> ResponseEntity<T> buildDownloadFileResponse(String fileName, T content) {
 		return ResponseEntity.ok()
