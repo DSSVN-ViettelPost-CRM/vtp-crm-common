@@ -6,6 +6,8 @@ import com.google.gson.reflect.TypeToken;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import one.util.streamex.StreamEx;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 
@@ -51,6 +53,13 @@ public class CommonUtils {
         return orgName != null && !orgName.isBlank()
                 ? orgValue + " - " + orgName
                 : orgValue;
+    }
+
+    public static boolean isAnyEmpty(Object... objs) {
+        if (ObjectUtils.isEmpty(objs)) {
+            return false;
+        }
+        return StreamEx.of(objs).anyMatch(ObjectUtils::isEmpty);
     }
 
 }

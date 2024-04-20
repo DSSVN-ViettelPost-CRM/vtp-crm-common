@@ -32,6 +32,10 @@ public class NotificationUtils {
             NotificationTypeVO notificationTemplate,
             D dataHolder) {
 
+        if (CommonUtils.isAnyEmpty(receivers, notificationTemplate, dataHolder)) {
+            return List.of();
+        }
+
         // format notification content
         Map<String, Object> dataMap = CommonUtils.convertObjectToHashMap(dataHolder);
         String title = formatContent(notificationTemplate.getName(), dataMap);
@@ -73,6 +77,10 @@ public class NotificationUtils {
             NotificationTypeVO notificationTemplate,
             D dataHolder,
             BiConsumer<D, FcmTokensByUsersResponse> dataHolderByReceiverFn) {
+
+        if (CommonUtils.isAnyEmpty(receivers, notificationTemplate, dataHolder, dataHolderByReceiverFn)) {
+            return List.of();
+        }
 
         List<NotifyMessageDTO> notifications = new ArrayList<>();
         for (FcmTokensByUsersResponse receiver : receivers) {
