@@ -39,7 +39,7 @@ public class NotificationUtils {
         // format notification content
         Map<String, Object> dataMap = CommonUtils.convertObjectToHashMap(dataHolder);
         String title = formatContent(notificationTemplate.getName(), dataMap);
-        String body = formatContent(notificationTemplate.getValue(), dataMap);
+        String body = formatContent(notificationTemplate.getNotifyNote(), dataMap);
 
         List<NotifyMessageDTO> notifications = new ArrayList<>();
         for (FcmTokensByUsersResponse receiver : receivers) {
@@ -92,7 +92,7 @@ public class NotificationUtils {
             // format notification content
             Map<String, Object> dataMap = CommonUtils.convertObjectToHashMap(dataHolderClone);
             String title = formatContent(notificationTemplate.getName(), dataMap);
-            String body = formatContent(notificationTemplate.getValue(), dataMap);
+            String body = formatContent(notificationTemplate.getNotifyNote(), dataMap);
 
             if (ObjectUtils.isNotEmpty(receiver.getFcmTokens())) {
                 for (String token : receiver.getFcmTokens()) {
