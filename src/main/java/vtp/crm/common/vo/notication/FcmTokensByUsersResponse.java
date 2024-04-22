@@ -13,5 +13,7 @@ public class FcmTokensByUsersResponse {
 
     private String phone;
 
+    private List<Long> orgIds;
+
     private List<String> fcmTokens;
 }

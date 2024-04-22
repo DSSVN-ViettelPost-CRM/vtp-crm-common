@@ -113,7 +113,7 @@ public class NotificationUtils {
         return notifications;
     }
 
-    private static String formatContent(String content, Map<String, Object> dataHolder) {
+    public static String formatContent(String content, Map<String, Object> dataHolder) {
         if (ObjectUtils.isEmpty(content)) {
             return content;
         }
