@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import one.util.streamex.StreamEx;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 
@@ -53,6 +54,16 @@ public class CommonUtils {
         return orgName != null && !orgName.isBlank()
                 ? orgValue + " - " + orgName
                 : orgValue;
+    }
+
+    public static String combineUserCodeAndName(String userCode, String fullName, String separatorString) {
+        return StringUtils.isNotEmpty(userCode)
+                ? userCode + separatorString + fullName
+                : fullName;
+    }
+
+    public static String combineUserCodeAndName(String userCode, String fullName) {
+        return combineUserCodeAndName(userCode, fullName, "-");
     }
 
     public static boolean isAnyEmpty(Object... objs) {

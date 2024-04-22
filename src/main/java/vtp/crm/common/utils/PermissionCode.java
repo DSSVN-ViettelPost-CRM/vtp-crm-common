@@ -23,4 +23,15 @@ public class PermissionCode {
 
     }
 
+    public static class Campaign {
+
+        /**
+         * permission lanh dao. permission xem menu giao nhiem vu
+         */
+        public static final String MENU_ASSIGN_VIEW = "campaign_list_manager_view";
+
+        public static final String MENU_ASSIGN_ADD = "campaign_list_manager_add";
+
+    }
+
 }
