@@ -5,7 +5,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddressList;
-import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -299,10 +298,10 @@ public class ExcelHelper {
 		Cell cell = getCell(sheet, rowIdx, colIdx);
 
 		ClientAnchor anchor = factory.createClientAnchor();
-		anchor.setCol1(cell.getColumnIndex() + 1);
-		anchor.setCol2(cell.getColumnIndex() + 3);
-		anchor.setRow1(rowIdx + 1);
-		anchor.setRow2(rowIdx + 5);
+        anchor.setCol1(colIdx);
+        anchor.setCol2(colIdx + 1);
+        anchor.setRow1(rowIdx);
+        anchor.setRow2(rowIdx + 1);
 
 		Drawing drawing = sheet.createDrawingPatriarch();
 		Comment comment = drawing.createCellComment(anchor);
