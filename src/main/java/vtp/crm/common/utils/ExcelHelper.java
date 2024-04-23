@@ -301,9 +301,9 @@ public class ExcelHelper {
 
 		ClientAnchor anchor = factory.createClientAnchor();
         anchor.setCol1(colIdx);
-        anchor.setCol2(colIdx + 1);
+        anchor.setCol2(colIdx + 3);
         anchor.setRow1(rowIdx);
-        anchor.setRow2(rowIdx + 1);
+        anchor.setRow2(rowIdx + 3);
 
 		Drawing drawing = sheet.createDrawingPatriarch();
 		Comment comment = drawing.createCellComment(anchor);
