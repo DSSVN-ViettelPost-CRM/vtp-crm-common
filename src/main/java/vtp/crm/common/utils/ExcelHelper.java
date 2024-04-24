@@ -104,10 +104,12 @@ public class ExcelHelper {
 
     public static void setCellColor(Sheet sheet, int rowIdx, int colIdx, IndexedColors color) {
         Cell cell = sheet.getRow(rowIdx).getCell(colIdx);
-        CellStyle style = sheet.getWorkbook().createCellStyle();
-        style.setFillForegroundColor(color.getIndex());
-        style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-        cell.setCellStyle(style);
+		CellStyle oldStyle = cell.getCellStyle();
+        CellStyle newStyle = sheet.getWorkbook().createCellStyle();
+		newStyle.cloneStyleFrom(oldStyle);
+        newStyle.setFillForegroundColor(color.getIndex());
+        newStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        cell.setCellStyle(newStyle);
     }
 
     public static void setRowColor(Sheet sheet, int rowIdx, IndexedColors color) {
