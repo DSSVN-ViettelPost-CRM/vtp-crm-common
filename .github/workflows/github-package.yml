@@ -5,6 +5,7 @@ on:
       - develop
       - staging
       - dss-prd
+      - vtp-prd
 
 jobs:
   publish:
@@ -20,7 +21,7 @@ jobs:
           distribution: 'temurin'
       - name: Publish package develop
         if: github.ref == 'refs/heads/develop'
-        run: mvn clean deploy --batch-mode -Pdevelop
+        run: mvn clean deploy --batch-mode && mvn clean deploy --batch-mode -Pdevelop
         env:
           GITHUB_ACTOR: ${{ vars.GH_ACTOR }}
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
@@ -32,9 +33,16 @@ jobs:
           GITHUB_ACTOR: ${{ vars.GH_ACTOR }}
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
-      - name: Publish package staging
+      - name: Publish package dss prd
         if: github.ref == 'refs/heads/dss-prd'
         run: mvn clean deploy --batch-mode -Pdss-prd
+        env:
+          GITHUB_ACTOR: ${{ vars.GH_ACTOR }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+
+      - name: Publish package vtp prd
+        if: github.ref == 'refs/heads/vtp-prd'
+        run: mvn clean deploy --batch-mode -Pvtp-prd
         env:
           GITHUB_ACTOR: ${{ vars.GH_ACTOR }}
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
