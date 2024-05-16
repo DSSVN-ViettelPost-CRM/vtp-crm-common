@@ -12,6 +12,8 @@ public class PermissionCode {
 
         public static final String CUSTOMER_OWNER_DATA_ADD = "customer_owner_data_add";
 
+        public static final String VIEW_CUSTOMER_PHONE_ADDRESS = "customer_detail_phone_and_address_view_full";
+
     }
 
     public static class Dashboard {
