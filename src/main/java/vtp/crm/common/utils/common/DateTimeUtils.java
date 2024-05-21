@@ -339,6 +339,27 @@ public class DateTimeUtils {
 		return new SimpleDateFormat(Constants.FORMAT_DATE_IMPORT).parse(date);
 	}
 
+    public static final Date parseDate(String dateString, String pattern) throws ParseException {
+        if (dateString == null || pattern == null) {
+            return null;
+        }
+        return new SimpleDateFormat(pattern).parse(dateString);
+    }
+
+    public static final LocalDate parseLocalDate(String dateString, String pattern) {
+        if (dateString == null || pattern == null) {
+            return null;
+        }
+        return LocalDate.parse(dateString, DateTimeFormatter.ofPattern(pattern));
+    }
+
+    public static final LocalDateTime parseLocalDateTime(String dateString, String pattern) {
+        if (dateString == null || pattern == null) {
+            return null;
+        }
+        return LocalDateTime.parse(dateString, DateTimeFormatter.ofPattern(pattern));
+    }
+
 	public static final Boolean isDateBetween(Date min, Date max, Date date) {
 		if (min == null) {
 			return max == null || date.compareTo(max) < 0;

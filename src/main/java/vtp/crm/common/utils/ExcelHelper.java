@@ -102,6 +102,26 @@ public class ExcelHelper {
 		return style;
 	}
 
+    public static void setCellColor(Sheet sheet, int rowIdx, int colIdx, IndexedColors color) {
+        Cell cell = sheet.getRow(rowIdx).getCell(colIdx);
+		CellStyle oldStyle = cell.getCellStyle();
+        CellStyle newStyle = sheet.getWorkbook().createCellStyle();
+		newStyle.cloneStyleFrom(oldStyle);
+        newStyle.setFillForegroundColor(color.getIndex());
+        newStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        cell.setCellStyle(newStyle);
+    }
+
+    public static void setRowColor(Sheet sheet, int rowIdx, IndexedColors color) {
+        Row row = sheet.getRow(rowIdx);
+        if (row == null) {
+            return;
+        }
+        for (int colIdx = 0; colIdx < row.getLastCellNum(); colIdx++) {
+            setCellColor(sheet, rowIdx, colIdx, color);
+        }
+    }
+
 	/**
 	 * Text alignment center
 	 *
@@ -280,15 +300,17 @@ public class ExcelHelper {
 		Cell cell = getCell(sheet, rowIdx, colIdx);
 
 		ClientAnchor anchor = factory.createClientAnchor();
-		anchor.setCol1(cell.getColumnIndex() + 1);
-		anchor.setCol2(cell.getColumnIndex() + 3);
-		anchor.setRow1(rowIdx + 1);
-		anchor.setRow2(rowIdx + 5);
+        anchor.setCol1(colIdx);
+        anchor.setCol2(colIdx + 3);
+        anchor.setRow1(rowIdx);
+        anchor.setRow2(rowIdx + 3);
 
 		Drawing drawing = sheet.createDrawingPatriarch();
 		Comment comment = drawing.createCellComment(anchor);
 		comment.setString(factory.createRichTextString(commentText));
-		comment.setAuthor(author);
+        if (author != null) {
+            comment.setAuthor(author);
+        }
 		cell.setCellComment(comment);
 	}
 

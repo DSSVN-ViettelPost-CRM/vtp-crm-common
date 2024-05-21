@@ -6,11 +6,15 @@ import com.google.gson.reflect.TypeToken;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import one.util.streamex.StreamEx;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Map;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Slf4j
@@ -34,6 +38,12 @@ public class CommonUtils {
 		return gson.toJson(object);
 	}
 
+    public static Map<String, Object> convertObjectToHashMap(Object obj) {
+        return obj == null
+                ? Map.of()
+                : gson.fromJson(convertToJsonString(obj), new TypeToken<Map<String, Object>>(){}.getType());
+    }
+
 	public static <T> ResponseEntity<T> buildDownloadFileResponse(String fileName, T content) {
 		return ResponseEntity.ok()
 				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + "\"")
@@ -44,6 +54,23 @@ public class CommonUtils {
         return orgName != null && !orgName.isBlank()
                 ? orgValue + " - " + orgName
                 : orgValue;
+    }
+
+    public static String combineUserCodeAndName(String userCode, String fullName, String separatorString) {
+        return StringUtils.isNotEmpty(userCode)
+                ? userCode + separatorString + fullName
+                : fullName;
+    }
+
+    public static String combineUserCodeAndName(String userCode, String fullName) {
+        return combineUserCodeAndName(userCode, fullName, "-");
+    }
+
+    public static boolean isAnyEmpty(Object... objs) {
+        if (ObjectUtils.isEmpty(objs)) {
+            return false;
+        }
+        return StreamEx.of(objs).anyMatch(ObjectUtils::isEmpty);
     }
 
 }
