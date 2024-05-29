@@ -5,6 +5,7 @@ on:
       - develop
       - staging
       - dss-prd
+      - dss-stg
 
 jobs:
   publish:
@@ -32,9 +33,17 @@ jobs:
           GITHUB_ACTOR: ${{ vars.GH_ACTOR }}
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
-      - name: Publish package staging
+      - name: Publish package dss prd
         if: github.ref == 'refs/heads/dss-prd'
         run: mvn clean deploy --batch-mode -Pdss-prd
         env:
           GITHUB_ACTOR: ${{ vars.GH_ACTOR }}
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+
+      - name: Publish package dss-stg
+        if: github.ref == 'refs/heads/dss-stg'
+        run: mvn clean deploy --batch-mode -Pdss-stg
+        env:
+          GITHUB_ACTOR: ${{ vars.GH_ACTOR }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+
