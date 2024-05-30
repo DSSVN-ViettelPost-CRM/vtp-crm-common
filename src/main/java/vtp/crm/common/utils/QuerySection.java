@@ -37,11 +37,10 @@ public class QuerySection {
     }
 
     public String generateCountAllSql() {
-        String sql = StreamEx.of(prepareSection, "select 1", fromSection, whereSection, groupBySection, havingSection)
+        return StreamEx.of(prepareSection, "select count(1)", fromSection, whereSection, groupBySection, havingSection)
                 .map(StringUtils::trimToNull)
                 .nonNull()
                 .joining(" ");
-        return "select count(1) from (" + sql + ") as foo";
     }
 
 }
