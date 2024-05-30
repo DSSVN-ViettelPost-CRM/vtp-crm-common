@@ -187,5 +187,11 @@
                 <project.version>dss-prd-0.0.1-SNAPSHOT</project.version>
             </properties>
         </profile>
+        <profile>
+            <id>dss-stg</id>
+            <properties>
+                <project.version>dss-stg-0.0.1-SNAPSHOT</project.version>
+            </properties>
+        </profile>
     </profiles>
 </project>
