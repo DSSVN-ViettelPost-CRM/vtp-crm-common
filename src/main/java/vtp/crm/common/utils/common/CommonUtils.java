@@ -77,7 +77,7 @@ public class CommonUtils {
 	public static String censorPhone(String origPhone) {
 		return Optional.ofNullable(origPhone)
 				.map(StringUtils::trimToNull)
-				.map(phone -> phone.length() >= 3 ? phone.substring(0, phone.length() - 3) + "***" : phone.replaceAll(".*", "*"))
+				.map(phone -> phone.length() >= 3 ? phone.substring(0, phone.length() - 3) + "***" : phone.replaceAll(".", "*"))
 				.orElse(null);
 	}
 
