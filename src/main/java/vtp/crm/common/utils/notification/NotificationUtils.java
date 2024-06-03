@@ -18,7 +18,6 @@ import java.util.function.BiConsumer;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class NotificationUtils {
 
-
     /**
      * gen notification
      *
@@ -53,6 +52,60 @@ public class NotificationUtils {
                                     .fcmToken(token)
                                     .notificationTypeId(notificationTemplate.getAdNotifycationTypeId())
                                     .title(title)
+                                    .notificationValue(notificationTemplate.getValue())
+                                    .notificationTemplate(notificationTemplate.getNotifyNote())
+                                    .body(body)
+                                    .build()
+                    );
+                }
+            }
+        }
+        return notifications;
+    }
+
+
+    /**
+     * gen notification
+     *
+     * @param receivers            ds nguoi nhan notification. call api /get-fcm-tokens-by-users
+     * @param notificationTemplate notification template. call api notification-type/type
+     * @param accountId            id cua khach hang
+     * @param campaignId           id cua nhiem vu
+     * @param dataHolder           dat ten bien trung voi ten trong template. vi du {{tenBien}}
+     * @param <D>                  type cua dataholder
+     */
+    public static <D> List<NotifyMessageDTO> formatNotifications(
+            List<FcmTokensByUsersResponse> receivers,
+            NotificationTypeVO notificationTemplate,
+            Long accountId,
+            Long campaignId,
+            D dataHolder) {
+
+        if (CommonUtils.isAnyEmpty(receivers, notificationTemplate, dataHolder)) {
+            return List.of();
+        }
+
+        // format notification content
+        Map<String, Object> dataMap = CommonUtils.convertObjectToHashMap(dataHolder);
+        String title = formatContent(notificationTemplate.getName(), dataMap);
+        String body = formatContent(notificationTemplate.getNotifyNote(), dataMap);
+
+        List<NotifyMessageDTO> notifications = new ArrayList<>();
+        for (FcmTokensByUsersResponse receiver : receivers) {
+            if (ObjectUtils.isNotEmpty(receiver.getFcmTokens())) {
+                for (String token : receiver.getFcmTokens()) {
+                    notifications.add(
+                            NotifyMessageDTO.builder()
+                                    .userId(receiver.getUserId())
+                                    .isInternal(receiver.getIsInternal())
+                                    .phone(receiver.getPhone())
+                                    .fcmToken(token)
+                                    .notificationTypeId(notificationTemplate.getAdNotifycationTypeId())
+                                    .title(title)
+                                    .notificationValue(notificationTemplate.getValue())
+                                    .accountId(accountId)
+                                    .campaignId(campaignId)
+                                    .notificationTemplate(notificationTemplate.getNotifyNote())
                                     .body(body)
                                     .build()
                     );
