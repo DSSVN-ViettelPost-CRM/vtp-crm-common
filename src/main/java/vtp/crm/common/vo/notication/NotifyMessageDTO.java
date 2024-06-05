@@ -31,6 +31,8 @@ public class NotifyMessageDTO {
 
     private Long accountId;
 
+    private Long customerId;
+
     private Long campaignId;
 
     private String notificationValue;
