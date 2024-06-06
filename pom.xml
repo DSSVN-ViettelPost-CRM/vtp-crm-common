@@ -188,9 +188,9 @@
             </properties>
         </profile>
         <profile>
-            <id>vtp-prd</id>
+            <id>dss-stg</id>
             <properties>
-                <project.version>vtp-prd-0.0.1-SNAPSHOT</project.version>
+                <project.version>dss-stg-0.0.1-SNAPSHOT</project.version>
             </properties>
         </profile>
     </profiles>

@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Slf4j
@@ -72,5 +73,16 @@ public class CommonUtils {
         }
         return StreamEx.of(objs).anyMatch(ObjectUtils::isEmpty);
     }
+
+	public static String censorPhone(String origPhone) {
+		return Optional.ofNullable(origPhone)
+				.map(StringUtils::trimToNull)
+				.map(phone -> phone.length() >= 3 ? phone.substring(0, phone.length() - 3) + "***" : phone.replaceAll(".", "*"))
+				.orElse(null);
+	}
+
+	public static String censorAddress(String districtName, String provinceName) {
+		return StreamEx.of(new String[]{"***", districtName, provinceName}).map(StringUtils::trimToNull).nonNull().joining(", ");
+	}
 
 }
