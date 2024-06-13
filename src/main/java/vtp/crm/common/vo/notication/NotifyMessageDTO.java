@@ -28,4 +28,14 @@ public class NotifyMessageDTO {
     private Long orgId;     //Đơn vị nhận thông báo
 
     private String phone;
+
+    private Long accountId;
+
+    private Long customerId;
+
+    private Long campaignId;
+
+    private String notificationValue;
+
+    private String notificationTemplate;
 }
