@@ -1,5 +1,6 @@
 package vtp.crm.common.utils.common;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 
@@ -325,5 +326,12 @@ public class StringUtils extends org.springframework.util.StringUtils {
             return false;
         }
         return input.matches(EMAIL_PATTERN);
+    }
+
+    public static String trimValue(String value) {
+        if (ObjectUtils.isEmpty(value)) {
+            return "";
+        }
+        return value.trim();
     }
 }

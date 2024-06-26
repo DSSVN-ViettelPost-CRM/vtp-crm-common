@@ -12,6 +12,8 @@ public class PermissionCode {
 
         public static final String CUSTOMER_OWNER_DATA_ADD = "customer_owner_data_add";
 
+        public static final String VIEW_CUSTOMER_PHONE_ADDRESS = "customer_detail_phone_and_address_view_full";
+
     }
 
     public static class Dashboard {
@@ -20,6 +22,17 @@ public class PermissionCode {
          * Xem dashboad theo quyền quản lý
          */
         public static final String DASHBOARD_AS_MANAGER = "dashboard_by_management_view";
+
+    }
+
+    public static class Campaign {
+
+        /**
+         * permission lanh dao. permission xem menu giao nhiem vu
+         */
+        public static final String MENU_ASSIGN_VIEW = "campaign_list_manager_view";
+
+        public static final String MENU_ASSIGN_ADD = "campaign_list_manager_add";
 
     }
 
