@@ -390,7 +390,7 @@ public class NotificationUtils {
             if (ObjectUtils.isNotEmpty(notifyMessageDTOList)) {
                 NotifyMessageDTO notifyMessageDTO = notifyMessageDTOList.get(0);
                 NotifyMessage notifyMessage = new NotifyMessage()
-                        .setUserId(notifyMessageDTO.getAccountId())
+                        .setUserId(notifyMessageDTO.getUserId())
                         .setIsInternal(notifyMessageDTO.getIsInternal())
                         .setTitle(notifyMessageDTO.getTitle())
                         .setBody(notifyMessageDTO.getBody())
