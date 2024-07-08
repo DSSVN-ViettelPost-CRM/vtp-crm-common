@@ -369,7 +369,6 @@ public class NotificationUtils {
         }
 
         Map<String, List<NotifyMessageDTO>> groupNotifyMessageDTOS = StreamEx.of(notifyMessageDTOS)
-                .filter(notification -> ObjectUtils.isNotEmpty(notification.getFcmToken()))
                 .toMap(notification -> notification.getUserId() + "-"
                                 + notification.getIsInternal() + "-"
                                 + notification.getTitle() + "-"
