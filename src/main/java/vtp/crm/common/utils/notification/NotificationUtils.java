@@ -2,11 +2,13 @@ package vtp.crm.common.utils.notification;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import one.util.streamex.StreamEx;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.SerializationUtils;
 import vtp.crm.common.utils.common.CommonUtils;
 import vtp.crm.common.vo.notication.FcmTokensByUsersResponse;
 import vtp.crm.common.vo.notication.NotificationTypeVO;
+import vtp.crm.common.vo.notication.NotifyMessage;
 import vtp.crm.common.vo.notication.NotifyMessageDTO;
 
 import java.io.Serializable;
@@ -353,6 +355,59 @@ public class NotificationUtils {
 
     private static String generateKeyPlaceHolder(String key) {
         return "\\{\\{" + key + "\\}\\}";
+    }
+
+    /**
+     * Group các NotifyMessageDTO chỉ khác nhau fcm tokens để nhóm lại thành NotifyMessage chứa 1 list fcm token
+     *
+     * @param notifyMessageDTOS              ds nguoi nhan notification. call api /get-fcm-tokens-by-users
+     */
+    public static List<NotifyMessage> convertAndGroupMessage(List<NotifyMessageDTO> notifyMessageDTOS) {
+        List<NotifyMessage> result = new ArrayList<>();
+        if (ObjectUtils.isEmpty(notifyMessageDTOS)) {
+            return result;
+        }
+
+        Map<String, List<NotifyMessageDTO>> groupNotifyMessageDTOS = StreamEx.of(notifyMessageDTOS)
+                .toMap(notification -> notification.getUserId() + "-"
+                                + notification.getIsInternal() + "-"
+                                + notification.getTitle() + "-"
+                                + notification.getBody() + "-"
+                                + notification.getNotificationTypeId() + "-"
+                                + notification.getOrgId() + "-"
+                                + notification.getPhone(),
+                        List::of,
+                        (x1, x2) -> {
+                            List<NotifyMessageDTO> summary = new ArrayList<>(x1.size() + x2.size());
+                            summary.addAll(x1);
+                            summary.addAll(x2);
+                            return summary;
+                        });
+
+        for (var entry : groupNotifyMessageDTOS.entrySet()) {
+            List<NotifyMessageDTO> notifyMessageDTOList = entry.getValue();
+            if (ObjectUtils.isNotEmpty(notifyMessageDTOList)) {
+                NotifyMessageDTO notifyMessageDTO = notifyMessageDTOList.get(0);
+                NotifyMessage notifyMessage = new NotifyMessage()
+                        .setUserId(notifyMessageDTO.getUserId())
+                        .setIsInternal(notifyMessageDTO.getIsInternal())
+                        .setTitle(notifyMessageDTO.getTitle())
+                        .setBody(notifyMessageDTO.getBody())
+                        .setNotificationTypeId(notifyMessageDTO.getNotificationTypeId())
+                        .setOrgId(notifyMessageDTO.getOrgId())
+                        .setPhone(notifyMessageDTO.getPhone())
+                        .setAccountId(notifyMessageDTO.getAccountId())
+                        .setCustomerId(notifyMessageDTO.getCustomerId())
+                        .setCampaignId(notifyMessageDTO.getCampaignId())
+                        .setNotificationValue(notifyMessageDTO.getNotificationValue())
+                        .setNotificationTemplate(notifyMessageDTO.getNotificationTemplate());
+                notifyMessage.setFcmTokens(StreamEx.of(notifyMessageDTOList)
+                        .map(NotifyMessageDTO::getFcmToken).toList());
+
+                result.add(notifyMessage);
+            }
+        }
+        return result;
     }
 
 }
